@@ -1,10 +1,23 @@
-const wss = require('ws');
-const server = new wss.Server({ port: 8080 });
+const express = require('express');
+const http = require('http');
+const WebSocket = require('ws');
+const path = require('path');
+
+const app = express();
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ server });
+
+// Serve your static files
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/healthz', (req, res) => {
+  res.send('OK');
+});
+// Your WebSocket logic (paste your user map code here)
 let arrayOfUsers = [];
 let M = new Map(); 
 const baseArrayOfUsers = [];
 let wsMap = new Map();
-
 /*
 for (let i = 0; i < 10; i++) {
     const user = {userName: ``, userId: Math.random().toString(36).substring(2, 15), messages: new Map()};
@@ -17,7 +30,7 @@ for (let i = 0; i < 10; i++) {
 }
 
 */
-server.on('connection', (ws) => {
+wss.on('connection', (ws) => {
     console.log('Client connected');
     ws.on('message', (event) => {
         const message = event.toString();
@@ -126,3 +139,9 @@ function deepCloneUsers(users){
         messages: new Map() // Start with fresh map per IP
     }));
 };
+
+// Use PORT from environment (Render requires this)
+const PORT = process.env.PORT || 8080;
+server.listen(PORT, () => {
+    console.log(`WebSocket server running on port ${PORT}`);
+});
