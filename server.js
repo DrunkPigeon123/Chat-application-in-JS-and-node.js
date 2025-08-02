@@ -8,7 +8,7 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
 // Serve your static files
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname));
 
 app.get('/healthz', (req, res) => {
   res.send('OK');
@@ -145,3 +145,4 @@ const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {
     console.log(`WebSocket server running on port ${PORT}`);
 });
+
