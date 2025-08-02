@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const ws = new WebSocket('wss://192.168.1.10:8080');
+  const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+  const ws = new WebSocket(`${protocol}://${window.location.host}`);
   let otherUserId;
   let arrayOfUsers = [];
   let myId;
@@ -143,3 +144,4 @@ document.addEventListener('keydown', (ke) => {
         };}
     }
 });
+
