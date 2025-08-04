@@ -151,13 +151,14 @@ document.addEventListener('keydown', (ke) => {
                 console.log(value.sender);
                 console.log(value.mes);
             if(value.sender === myId) {
-                li.style.color = 'red';
+                li.style.color = "rgba(117, 124, 126, 1)";
                 li.style.textAlign = 'right';
             }
             messagesHtml.appendChild(li);});
         };}
     }
 });
+
 
 
 
