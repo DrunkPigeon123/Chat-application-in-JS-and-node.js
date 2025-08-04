@@ -118,10 +118,11 @@ function UAOU(data) {
         uh.dataset.index = i;
         uh.addEventListener('click', () => {const idBefore = otherUserId; 
             otherUserId = arrayOfUsers[uh.dataset.index].userId;
-            document.getElementById('person').textContent = `You are now chatting with ${otherUserId}`;
+            ouname = arrayOfUsers[uh.dataset.index].userName;
+            document.getElementById('person').textContent = `You are now chatting with ${ouname}`;
             reset(idBefore);});
         const I = document.getElementById('users');
-        uh.textContent = `${arrayOfUsers[i].userName}, ${arrayOfUsers[i].userId}`;
+        uh.textContent = `${arrayOfUsers[i].userName}`;
         I.appendChild(uh);
         }
  }
@@ -156,5 +157,6 @@ document.addEventListener('keydown', (ke) => {
         };}
     }
 });
+
 
 
