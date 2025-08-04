@@ -18,6 +18,7 @@ let arrayOfUsers = [];
 let M = new Map(); 
 const baseArrayOfUsers = [];
 let wsMap = new Map();
+let wsSet = new Set();
 /*
 for (let i = 0; i < 10; i++) {
     const user = {userName: ``, userId: Math.random().toString(36).substring(2, 15), messages: new Map()};
@@ -36,7 +37,7 @@ wss.on('connection', (ws) => {
         const message = event.toString();
     console.log(`Received: ${message}`);
         // Broadcast message to all connected clients
-        if(!(message.includes('wussup'))) {
+        if(!(message.includes('wussup')) || wsSet.has(ws) {
             UpdateAOUSend(message);
             //console.log(event);
             const pm = JSON.parse(message);
@@ -49,16 +50,18 @@ wss.on('connection', (ws) => {
             wsMap.get(pm.sender).send(message);
            
         console.log(' message received');}
-        else{
+        else if(message.includes("wussup") && !wsSet.has(ws)){
             console.log('wussup message received');
             ws.send('wussup' + AOU2(message, ws));
             //console.log(( AOU2(message, ws)));
+          wsSet.add(ws);
         }
         });
     
 
     ws.on('close', () => {
         console.log('Client disconnected');
+        wsSet.delete(ws);
     });
  });
 console.log('WebSocket server running on ws://localhost:8080');
@@ -73,21 +76,24 @@ console.log('WebSocket server running on ws://localhost:8080');
 
 
 const AOU2 = (message, ws) => {
-    const oth = message.substring(6); // Remove 'wussup'
-    
+    const oth = message.substring(6, 17); // Remove 'wussup'
+    const name = message.substring(17);
+    console.log(name);
+    console.log(oth);
         wsMap.set(oth,ws);
-    
-    if(!M.has(oth)) {
-        const obj =
+
+       const obj =
         {
-            userName: ``, 
+            userName: name, 
             userId: oth, 
             messages: new Map()
         }
+        M.forEach((value,key)=>{value.forEach((value2)=>{if(value2.userId == oth){value2.userName = name}})})
+
+    if(!M.has(oth)) {
+     
         baseArrayOfUsers.push(obj);
         M.set(oth, deepCloneUsers(baseArrayOfUsers));
-        M.forEach((value,key)=>{if(key!==oth){value.push(obj)}
-        })
     }
     let MM = M.get(oth);
     let users = MM.map(user =>({
@@ -145,4 +151,5 @@ const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {
     console.log(`WebSocket server running on port ${PORT}`);
 });
+
 
