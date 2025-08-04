@@ -86,6 +86,7 @@ ws.onmessage = async (event) => {
 
 }
 
+document.getElementById("person").textContent = "You are now chatting with ..."
 document.getElementById("Input").disabled = true;
 document.getElementById("Input").placeholder = "select a person first"
   
@@ -157,6 +158,7 @@ document.addEventListener('keydown', (ke) => {
         };}
     }
 });
+
 
 
 
