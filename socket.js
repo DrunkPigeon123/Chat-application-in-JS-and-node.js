@@ -4,6 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let otherUserId;
   let arrayOfUsers = [];
   let myId;
+  let myUsername;
+  let wellconected = false;
+
+  myUsername = localStorage.getItem("username");
+  console.log(myUsername);
+  
   if (localStorage.getItem('id') !== null) {
     myId = localStorage.getItem('id');
 } else {
@@ -14,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ws.onopen = () => {
     console.log('WebSocket opened');
     console.log(myId);
-    ws.send('wussup' + myId);
+    ws.send('wussup' + myId + myUsername);
   };
 
 
@@ -27,10 +33,10 @@ ws.onmessage = async (event) => {
       data = event.data;
     }
     
-    if (!(data.includes('wussup'))) {
+    if (!(data.includes('wussup')) || wellconected) {
         console.log("asyncevent"); 
     websocketMessage(data);}
-    else {
+    else if ((data.includes('wussup')) && wellconected == false){
         UAOU(data);
     }
 }
@@ -42,7 +48,7 @@ ws.onmessage = async (event) => {
     const I = document.getElementById('messages');
     const li = document.createElement('li');
     li.textContent = pm.mess;
-    li.style.color = "red";
+    li.style.color = "rgba(123, 139, 143, 1)";
     li.style.textAlign = "right"
     console.log(li.textContent); 
     I.appendChild(li);
@@ -79,6 +85,10 @@ ws.onmessage = async (event) => {
     }
 
 }
+
+document.getElementById("Input").disabled = true;
+document.getElementById("Input").placeholder = "select a person first"
+  
 function sendMessage() {
     const input = document.getElementById('Input');
     const message = {
@@ -127,6 +137,8 @@ document.addEventListener('keydown', (ke) => {
    
 
     const reset = (idBefore) => {if(idBefore !== otherUserId) {
+        document.getElementById("Input").disabled = false;
+        document.getElementById("Input").placeholder = "Type your message here..."
         const messagesHtml = document.getElementById('messages');
         messagesHtml.innerHTML = '';
         const index = arrayOfUsers.findIndex(user => user.userId === otherUserId);
@@ -144,4 +156,5 @@ document.addEventListener('keydown', (ke) => {
         };}
     }
 });
+
 
