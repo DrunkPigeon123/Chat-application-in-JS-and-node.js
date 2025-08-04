@@ -1,0 +1,23 @@
+body{
+   
+   display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: rgb(209, 234, 240);
+    border-radius: 3px;
+}
+div{
+    padding: 8px 20px 20px 20px;
+    background: rgb(245, 247, 244);
+    width: 12.5%;
+    justify-items: center;
+    border-radius: 8px;
+}
+input{
+    background-color: rgb(237, 233, 248);
+    width: 160px;
+    height: 40px;
+    border-radius: 8px;
+    font-size: 16px;
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <link rel="stylesheet" href="loging.css">
+</head>
+<body>
+    <div>
+        <h1>Username</h1>
+        <input type="text" placeholder = "type your name here...">
+    </div>
+    <script>
+        document.addEventListener('keydown',(key)=>{if(key.key=="Enter"){
+        if(document.querySelector("input").value != '')
+    {
+        localStorage.setItem("username", document.querySelector("input").value)
+        window.location.href = "socket.html";
+    }}});
+    </script>
+</body>
+</html>
