@@ -88,13 +88,15 @@ const AOU2 = (message, ws) => {
             userId: oth, 
             messages: new Map()
         }
-        M.forEach((value,key)=>{value.forEach((value2)=>{if(value2.userId == oth){value2.userName = name}})})
-
-    if(!M.has(oth)) {
-     
+          if(!M.has(oth)) {
+        console.log("M does not have oth");
         baseArrayOfUsers.push(obj);
         M.set(oth, deepCloneUsers(baseArrayOfUsers));
+        M.forEach((value, key) => {if(key !== oth) {
+            value.push(obj);
+        }});
     }
+  
     let MM = M.get(oth);
     let users = MM.map(user =>({
         userName: user.userName,
@@ -151,6 +153,7 @@ const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {
     console.log(`WebSocket server running on port ${PORT}`);
 });
+
 
 
 
