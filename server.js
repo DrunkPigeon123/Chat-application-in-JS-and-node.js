@@ -37,7 +37,7 @@ wss.on('connection', (ws) => {
         const message = event.toString();
     console.log(`Received: ${message}`);
         // Broadcast message to all connected clients
-        if(!(message.includes('wussup')) || wsSet.has(ws) {
+        if(!(message.includes('wussup')) || wsSet.has(ws)) {
             UpdateAOUSend(message);
             //console.log(event);
             const pm = JSON.parse(message);
@@ -151,5 +151,6 @@ const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {
     console.log(`WebSocket server running on port ${PORT}`);
 });
+
 
 
