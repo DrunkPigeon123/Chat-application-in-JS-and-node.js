@@ -10,7 +10,7 @@ body{
 div{
     padding: 8px 20px 20px 20px;
     background: rgb(245, 247, 244);
-    width: 12.5%;
+    width: 230px;
     justify-items: center;
     border-radius: 8px;
 }
@@ -21,3 +21,4 @@ input{
     border-radius: 8px;
     font-size: 16px;
 }
+
