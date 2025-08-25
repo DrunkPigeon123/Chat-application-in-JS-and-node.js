@@ -35,10 +35,10 @@ ws.onmessage = async (event) => {
     
     if (!(data.includes('wussup')) || wellconected) {
         console.log("asyncevent"); 
-    websocketMessage(data);
-    wellconected = true;}
+    websocketMessage(data);}
     else if ((data.includes('wussup')) && wellconected == false){
         UAOU(data);
+      wellconected = true;
     }
 }
     function websocketMessage(message) {
@@ -159,6 +159,7 @@ document.addEventListener('keydown', (ke) => {
         };}
     }
 });
+
 
 
 
